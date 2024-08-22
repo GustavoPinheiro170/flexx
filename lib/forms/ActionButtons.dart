@@ -121,3 +121,31 @@ class ActionButtonCadastrarWidget extends StatelessWidget {
     );
   }
 }
+
+class ActionButtonRecuperarAcessoWidget extends StatelessWidget {
+  final TextEditingController documento;
+
+  final TextEditingController email;
+
+  const ActionButtonRecuperarAcessoWidget(
+      {super.key, required this.documento, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size(180.0, 45.0),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 18,
+        ),
+      ),
+      onPressed: () {},
+      child: const Text('Recuperar'),
+    );
+  }
+}

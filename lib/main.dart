@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'forms/Forms.dart';
 import 'routes/Login.dart';
 
 void main() {
+  Animate.restartOnHotReload;
   runApp(const AbracorApp());
 }
 

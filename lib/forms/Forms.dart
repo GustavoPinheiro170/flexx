@@ -1,27 +1,30 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:masked_text/masked_text.dart';
 import '../forms/ActionButtons.dart';
 
 class Editor extends StatelessWidget {
   String? title;
   String? tip;
+  String? mask;
   TextEditingController? controller;
   IconData? icon;
   bool isPassword = false;
   bool isTextFiled = true;
 
-  Editor.numero(this.title, this.tip, this.controller, this.icon, {super.key}) {
+  Editor.numero(this.title, this.tip, this.controller, this.icon, this.mask, {super.key}) {
     isPassword = false;
     isTextFiled = false;
   }
 
-  Editor.texto(this.title, this.tip, this.controller, this.icon, {super.key}) {
+  Editor.texto(this.title, this.tip, this.controller, this.icon, this.mask, {super.key}) {
     isPassword = false;
     isTextFiled = true;
   }
 
-  Editor.senha(this.title, this.tip, this.controller, this.icon, {super.key}) {
+  Editor.senha(this.title, this.tip, this.controller, this.icon, this.mask, {super.key}) {
     isPassword = true;
   }
 
@@ -32,6 +35,11 @@ class Editor extends StatelessWidget {
       child: TextField(
         obscureText: isPassword,
         controller: controller,
+        inputFormatters: [MaskTextInputFormatter(
+          mask: mask,
+          type: MaskAutoCompletionType.lazy
+
+        )],
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           icon: Icon(
@@ -69,9 +77,9 @@ class FormularioTransferencia extends StatelessWidget {
         child: Column(
           children: [
             Editor.texto("Número da Conta", "0000", controladorNumeroConta,
-                Icons.numbers),
+                Icons.numbers, null),
             Editor.texto("Valor da Transferência", "R\$ 200.00",
-                controladorValor, Icons.monetization_on),
+                controladorValor, Icons.monetization_on, null),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
@@ -138,49 +146,3 @@ class Transferencia extends StatelessWidget {
   }
 }
 
-class FormularioCadastro extends StatelessWidget {
-  final TextEditingController documento = TextEditingController();
-  final TextEditingController senha = TextEditingController();
-  final TextEditingController nomeCompleto = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController tipoDocumento = TextEditingController();
-  final TextEditingController numeroCelular = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text('Cadastre-se'),
-      ),
-      body: Material(
-        child: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('images/background.jpg'),
-                  fit: BoxFit.cover)),
-          child: Column(
-            children: [
-              Editor.numero(
-                  "CPF / CNPJ", "000.000.000-00", documento, Icons.perm_identity),
-              Editor.senha("Senha", "0000", senha, Icons.password),
-              Editor.texto("Nome Completo", "José Da Silva", nomeCompleto,
-                  Icons.text_format),
-              Editor.texto("E-mail", "jose@gmail.com", email, Icons.email),
-              Editor.numero("Telefone", "11939213360", numeroCelular,
-                  Icons.phone_android),
-              ActionButtonCadastrarWidget(
-                documento: documento,
-                senha: senha,
-                nomeCompleto: nomeCompleto,
-                email: email,
-                tipoDocumento: tipoDocumento,
-                numeroCelular: numeroCelular,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
