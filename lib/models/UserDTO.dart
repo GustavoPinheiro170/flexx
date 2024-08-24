@@ -1,18 +1,22 @@
 class UserDTO {
-  final String fullName;
-
-  final String documentNumber;
-
-  final String documentType;
-
+  final String email;
   final String password;
+  final String document;
+  final String role =   "USER";
+  final String creci;
+  final String name;
+  final String phone;
 
-  UserDTO(this.fullName, this.documentNumber, this.documentType, this.password);
+
+  UserDTO(this.email, this.password, this.document, this.creci, this.name, role, this.phone);
 
   Map toJson() => {
-        'fullName': fullName,
-        'documentNumber': documentNumber,
-        'documentType': documentType,
+        'email': email,
         'password': password,
+        'document': document,
+        'role': role,
+        'creci': creci,
+        'name': name,
+        'phone': phone,
       };
 }

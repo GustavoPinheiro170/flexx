@@ -4,7 +4,7 @@ class LoadingController extends ChangeNotifier{
   
   static LoadingController instance = LoadingController();
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   changeLoading() {
     isLoading = !isLoading;
